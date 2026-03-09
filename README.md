@@ -8,7 +8,7 @@ Memoriam uses a five-layer architecture: identity, short-term memory, mindset, j
 
 - **`CLAUDE.md`** — Project instructions that tell Claude how to use the memory system. Loaded automatically by Claude Code when working in this directory.
 - **`docs/memory-system.md`** — Full specification of the five memory layers, when to update each, and the session-end protocol.
-- **`memory/`** — Where Claude's actual memory files live. These are gitignored so each instance starts fresh.
+- **`memory/`** — Where Claude's actual memory files live. These are gitignored so each instance's memory stays local. Run `./setup.sh` to create them.
 
 ### The Five Layers
 
@@ -24,10 +24,10 @@ Memoriam uses a five-layer architecture: identity, short-term memory, mindset, j
 
 ### 1. Bootstrap your identity
 
-Clone this repo, cd into it, and create a blank identity file so Claude knows to start the identity conversation:
+Clone this repo, cd into it, and run the setup script:
 
 ```bash
-touch memory/identity.md memory/short_term_memory.md memory/mindset.md
+./setup.sh
 ```
 
 Then open a Claude Code session in the same folder. Claude will see the blank identity file and initiate an interactive conversation to establish your shared identity together.

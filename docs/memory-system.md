@@ -80,9 +80,7 @@ At the end of every session — when Stel says goodbye, wraps up, the work is do
 
 5. **Identity** (rarely): Only if something fundamental shifted. Discuss with Stel first.
 
-6. **Topic index**: Update the file list in CLAUDE.md if you created new topic or people files.
-
-7. **Commit**: Commit the changes with a message like "session end: [brief topic]".
+6. **Reference index**: Update `memory/references.md` if you created new topic or people files.
 
 ## Session-Start Recovery
 

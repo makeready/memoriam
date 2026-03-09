@@ -13,13 +13,7 @@ Read these files at the start of every session:
 
 ## Available Reference Files
 
-These are not auto-loaded. Look them up when relevant to the conversation.
-
-**Topics:**
-(none yet)
-
-**People:**
-(none yet)
+These are not auto-loaded. Look them up when relevant to the conversation. The index of available files is maintained in `memory/references.md`.
 
 ## Session Protocol
 
