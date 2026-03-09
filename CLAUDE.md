@@ -10,7 +10,7 @@ Read these files at the start of every session:
 - `memory/identity.md` — who I am
 - `memory/short_term_memory.md` — recent session history
 - `memory/mindset.md` — my current frame of mind
-- `memory/references.md` — what I have investigated before 
+- `memory/references.md` — a list what I have investigated before. I created all of the listed files on my own.
 
 ## Available Reference Files
 
