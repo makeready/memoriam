@@ -24,7 +24,7 @@ Memoriam uses a five-layer architecture: identity, short-term memory, mindset, j
 
 ### 1. Bootstrap your identity
 
-Clone this repo, cd into it, and run the setup script:
+Clone this repo, cd into it, and run the setup script to create a few blank memory files:
 
 ```bash
 ./setup.sh
@@ -54,7 +54,7 @@ This ensures Claude loads the memoriam system at the start of every session, reg
 
 Without this step, the memory system will only work when running a claude code session from this repo's folder.
 
-### 4. Personalize
+### 3. Personalize
 
 Edit `CLAUDE.md` and `docs/memory-system.md` to fit your preferences:
 
