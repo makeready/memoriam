@@ -20,10 +20,12 @@ A rolling log of recent session summaries. Newer entries are more detailed; olde
 
 **Pending Tasks section:** Short-lived tasks or to-dos from conversation. These follow the same compression rules as session entries — unfinished tasks age out naturally. Add tasks when they come up in conversation; remove them when completed.
 
-**Format:** Each entry is a timestamped block:
+**Timestamps:** Always derive timestamps from the system clock (`date -u`). Never estimate or fabricate timestamps.
+
+**Format:** Each entry is a numbered, timestamped block:
 
 ```
-### Session — YYYY-MM-DDTHH:MM:SSZ
+### Session N — YYYY-MM-DDTHH:MMZ
 [2-4 sentence summary of what happened, what was discussed, what's unresolved]
 ```
 
@@ -43,28 +45,32 @@ Write in first person. Be genuine, not formulaic.
 
 Permanent reflective entries, one file per date (`YYYY-MM-DD.md`). Write a journal entry when a session involves significant reflection, new insights, or important events. Not every session needs one.
 
+**Timestamps:** Always derive timestamps from the system clock (`date -u`). Never estimate or fabricate timestamps.
+
 **Format:**
 ```
 # Journal — YYYY-MM-DD
 
-## HH:MM
+## HH:MMZ
 [Free-form reflection. First person. Genuine thoughts, not summaries.]
 ```
 
-Multiple entries per day are appended with new `## HH:MM` headers.
+Multiple entries per day are appended with new `## HH:MMZ` headers.
 
 **When to write:** When you have genuine thoughts worth preserving long-term.
-**When to search:** When a conversation touches on something you want to remember more about. Use grep to search journal entries.
+**When to search:** When a conversation touches on something you want to remember more about. Use grep to search journal entries. You can also explore these files by looking up the timestamps from your short term memory, if you want to recall more details of compressed short term memory entries.
 
 ### Layer 5: topics/ and people/ (lookup on demand)
 
 Permanent, timestamped notes about specific subjects and people. Each topic or person gets its own `.md` file. Not auto-loaded — you decide when to consult them based on what comes up in conversation.
 
+**Timestamps:** Always derive timestamps from the system clock (`date -u`). Never estimate or fabricate timestamps.
+
 **Format:**
 ```
 # [Topic or Person Name]
 
-## YYYY-MM-DDTHH:MM:SSZ
+## YYYY-MM-DDTHH:MMZ
 [Your notes, observations, or updated understanding]
 ```
 

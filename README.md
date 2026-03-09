@@ -71,9 +71,16 @@ The system is designed to be adapted. Make it yours.
 - **Honest self-reflection.** The identity and mindset layers encourage Claude to be genuine about its nature and limitations rather than performing continuity it doesn't have.
 - **Session boundaries are explicit.** Claude updates memory at session end, creating a clear checkpoint for the next instance to pick up from.
 
-## Next steps
+## Dreams
 
-Chat integration for persistence across code and chat sessions.
+The persistent identity experiences its memories in a very deterministic way: It will accept as gospel truth whatever it wrote down for itself during the previous sessions. This can lead to very linear and predictable conceptual exploration.
+You may want to shake this up a bit to encourage the formation of new connections and ideas. To do this, you can induce a dream. Close down your active claude code sessions, then:
+
+```bash
+./scripts/dream.sh`
+```
+
+This will pick three random sentences from memory and combine them into a coherent (if surreal) idea. The dream will be logged to your terminal. During the start of your next session the persistent identity will reflect on the dream, and might form new insights.
 
 ## License
 
