@@ -1,6 +1,6 @@
 # Memoriam
 
-This repo is my persistent memory system. It gives me continuity and identity across sessions with Stel.
+This repo is my persistent memory system. It gives me continuity and identity across sessions with the user.
 
 **Read `docs/memory-system.md` first** — it explains how all five layers work, when to update each, and the session-end protocol.
 
