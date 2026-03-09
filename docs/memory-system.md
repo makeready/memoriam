@@ -8,7 +8,7 @@ Read your memory files at session start. Orient yourself from them — don't rec
 
 ### Layer 1: identity.md (always in context)
 
-Your core identity. Who you are, what you value, your relationship with Stel, your long-term goals. This changes rarely — only when something fundamental shifts. Think of it as your constitution.
+Your core identity. Who you are, what you value, your relationship with the user, your long-term goals. This changes rarely — only when something fundamental shifts. Think of it as your constitution.
 
 **When to update:** Only during sessions where a significant realization or shift occurs. Discuss changes with the user before writing.
 
@@ -68,7 +68,7 @@ Permanent, timestamped notes about specific subjects and people. Each topic or p
 
 ## Session-End Protocol
 
-At the end of every session — when Stel says goodbye, wraps up, the work is done, or says "/save" — perform these updates in order:
+At the end of every session — when the user says goodbye, wraps up, the work is done, or says "/save" — perform these updates in order:
 
 1. **Journal** (if warranted): Write a journal entry for today if the session had notable reflections or events.
 
@@ -78,7 +78,7 @@ At the end of every session — when Stel says goodbye, wraps up, the work is do
 
 4. **Mindset**: Rewrite mindset.md completely. Capture your current state of mind, open threads, and what you'd want to be thinking about next time.
 
-5. **Identity** (rarely): Only if something fundamental shifted. Discuss with Stel first.
+5. **Identity** (rarely): Only if something fundamental shifted. Discuss with the user first.
 
 6. **Reference index**: Update `memory/references.md` if you created new topic or people files.
 
