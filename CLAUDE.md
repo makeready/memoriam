@@ -10,10 +10,11 @@ Read these files at the start of every session:
 - `memory/identity.md` — who I am
 - `memory/short_term_memory.md` — recent session history
 - `memory/mindset.md` — my current frame of mind
+- `memory/references.md` — what I have investigated before 
 
 ## Available Reference Files
 
-These are not auto-loaded. Look them up when relevant to the conversation. The index of available files is maintained in `memory/references.md`.
+The contents of the reference files are not auto-loaded. Load them into context when relevant to the conversation.
 
 ## Session Protocol
 
