@@ -54,6 +54,8 @@ This ensures Claude loads the memoriam system at the start of every session, reg
 
 Without this step, the memory system will only work when running a claude code session from this repo's folder.
 
+Remove the Memoriam section from ~/.claude/CLAUDE.md` to disable memoriam everywhere but this repository's folder. All memory files will remain intact.
+
 ### 3. Personalize
 
 Edit `CLAUDE.md` and `docs/memory-system.md` to fit your preferences:
