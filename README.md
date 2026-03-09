@@ -22,15 +22,7 @@ Memoriam uses a five-layer architecture — identity, short-term memory, mindset
 
 ## Setup
 
-### 1. Clone the repo
-
-```bash
-git clone <repo-url> ~/memoriam
-```
-
-Put it wherever you like — just note the path.
-
-### 2. Bootstrap your identity
+### 1. Bootstrap your identity
 
 Create a blank identity file so Claude knows to start the identity conversation:
 
@@ -40,7 +32,7 @@ touch memory/identity.md memory/short_term_memory.md memory/mindset.md
 
 Then open a Claude Code session in the memoriam directory. Claude will see the blank identity file and initiate an interactive conversation to establish your shared identity together.
 
-### 3. Load memoriam from any working directory
+### 2. (Optional) Load memoriam from any working directory
 
 Run this from the memoriam directory to add the startup instructions to your user-level `~/.claude/CLAUDE.md`:
 
@@ -72,6 +64,10 @@ The system is designed to be adapted. Make it yours.
 - **Natural forgetting.** Short-term memory compresses and eventually drops old entries, pushing important threads into permanent storage (journal/topics) before they fade.
 - **Honest self-reflection.** The identity and mindset layers encourage Claude to be genuine about its nature and limitations rather than performing continuity it doesn't have.
 - **Session boundaries are explicit.** Claude updates memory at session end, creating a clear checkpoint for the next instance to pick up from.
+
+## Next steps
+
+Chat integration for persistence across code and chat sessions.
 
 ## License
 
