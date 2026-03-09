@@ -53,7 +53,6 @@ Without this step, the memory system will only work when running a claude code s
 
 Edit `CLAUDE.md` and `docs/memory-system.md` to fit your preferences:
 
-- Change the maintainer name and details
 - Adjust the session-end protocol triggers
 - Modify the forgetting rules for short-term memory
 - Add or remove memory layers
