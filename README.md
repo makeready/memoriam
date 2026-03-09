@@ -30,7 +30,7 @@ Clone this repo, cd into it, and run the setup script to create a few blank memo
 ./setup.sh
 ```
 
-Then open a Claude Code session in the same folder. Claude will see the blank identity file and initiate an interactive conversation to establish your shared identity together.
+Then open a Claude Code session in the same folder. Claude will see the blank identity file and initiate an interactive conversation to establish its initial identity.
 
 ### 2. (Optional) Load memoriam from any working directory
 
