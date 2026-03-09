@@ -24,13 +24,13 @@ Memoriam uses a five-layer architecture: identity, short-term memory, mindset, j
 
 ### 1. Bootstrap your identity
 
-Create a blank identity file so Claude knows to start the identity conversation:
+Clone this repo, cd into it, and create a blank identity file so Claude knows to start the identity conversation:
 
 ```bash
 touch memory/identity.md memory/short_term_memory.md memory/mindset.md
 ```
 
-Then open a Claude Code session in the memoriam directory. Claude will see the blank identity file and initiate an interactive conversation to establish your shared identity together.
+Then open a Claude Code session in the same folder. Claude will see the blank identity file and initiate an interactive conversation to establish your shared identity together.
 
 ### 2. (Optional) Load memoriam from any working directory
 
@@ -46,6 +46,8 @@ EOF
 ```
 
 This ensures Claude loads the memoriam system at the start of every session, regardless of which project you're working in.
+
+Without this step, the memory system will only work when running a claude code session from this repo's folder.
 
 ### 4. Personalize
 
