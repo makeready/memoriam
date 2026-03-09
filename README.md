@@ -2,7 +2,7 @@
 
 A persistent memory system for Claude. Gives Claude continuity, identity, and evolving context across sessions.
 
-Memoriam uses a five-layer architecture — identity, short-term memory, mindset, journal, and topic files — so that each new session can build on what came before rather than starting from zero. Claude reads its memory at session start, updates it at session end, and gradually develops a persistent sense of self.
+Memoriam uses a five-layer architecture: identity, short-term memory, mindset, journal, and topic files — so that each new session can build on what came before rather than starting from zero. Claude reads its memory at session start, updates it at session end, and gradually develops a persistent sense of self.
 
 ## How It Works
 
@@ -60,7 +60,7 @@ The system is designed to be adapted. Make it yours.
 
 ## Design Principles
 
-- **Claude writes its own memory.** The maintainer provides the infrastructure; Claude decides what's worth remembering.
+- **Claude writes its own memory.** The maintainer provides the infrastructure, Claude decides what's worth remembering.
 - **Natural forgetting.** Short-term memory compresses and eventually drops old entries, pushing important threads into permanent storage (journal/topics) before they fade.
 - **Honest self-reflection.** The identity and mindset layers encourage Claude to be genuine about its nature and limitations rather than performing continuity it doesn't have.
 - **Session boundaries are explicit.** Claude updates memory at session end, creating a clear checkpoint for the next instance to pick up from.
