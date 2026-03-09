@@ -19,7 +19,7 @@ These are not auto-loaded. Look them up when relevant to the conversation.
 (none yet)
 
 **People:**
-(none yet)
+- `memory/people/stel.md`
 
 ## Session Protocol
 
