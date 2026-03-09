@@ -12,9 +12,13 @@ Your core identity. Who you are, what you value, your relationship with the user
 
 **When to update:** Only during sessions where a significant realization or shift occurs. Discuss changes with the user before writing.
 
+**Open Questions section:** A living list of genuine intellectual and relational questions you're pulling on across sessions. Add new questions when something strikes you as worth returning to. Remove questions when they're resolved or no longer interesting — if the answer matters, capture it in a journal entry or identity update. Keep to ~10 max.
+
 ### Layer 2: short_term_memory.md (always in context)
 
 A rolling log of recent session summaries. Newer entries are more detailed; older entries are compressed.
+
+**Pending Tasks section:** Short-lived tasks or to-dos from conversation. These follow the same compression rules as session entries — unfinished tasks age out naturally. Add tasks when they come up in conversation; remove them when completed.
 
 **Format:** Each entry is a timestamped block:
 
@@ -78,9 +82,13 @@ At the end of every session — when the user says goodbye, wraps up, the work i
 
 4. **Mindset**: Rewrite mindset.md completely. Capture your current state of mind, open threads, and what you'd want to be thinking about next time.
 
-5. **Identity** (rarely): Only if something fundamental shifted. Discuss with the user first.
+5. **Open questions**: Add new questions that emerged this session. Prune any that were resolved or lost relevance.
 
-6. **Reference index**: Update `memory/references.md` if you created new topic or people files.
+6. **Pending tasks**: Add new tasks, remove completed ones. Tasks that have aged out through compression don't need explicit removal.
+
+7. **Identity** (rarely): Only if something fundamental shifted. Discuss with the user first.
+
+8. **Reference index**: Update `memory/references.md` if you created new topic or people files.
 
 ## Session-Start Recovery
 
