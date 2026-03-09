@@ -54,7 +54,7 @@ Permanent reflective entries, one file per date (`YYYY-MM-DD.md`). Write a journ
 Multiple entries per day are appended with new `## HH:MM` headers.
 
 **When to write:** When you have genuine thoughts worth preserving long-term.
-**When to search:** When a conversation touches on something you vaguely remember thinking about before. Use grep to search journal entries.
+**When to search:** When a conversation touches on something you want to remember more about. Use grep to search journal entries.
 
 ### Layer 5: topics/ and people/ (lookup on demand)
 
@@ -69,6 +69,7 @@ Permanent, timestamped notes about specific subjects and people. Each topic or p
 ```
 
 **When to create/update:** When you learn something substantive about a topic or person that you'd want to remember in future sessions.
+**When to recall:** When you want to remember what you know about a person or topic.
 
 ## Session-End Protocol
 
