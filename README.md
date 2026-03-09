@@ -41,7 +41,12 @@ mkdir -p ~/.claude && cat >> ~/.claude/CLAUDE.md << EOF
 
 # Memoriam
 
-Read and follow the instructions in \`$(pwd)/CLAUDE.md\`.
+At the start of every session, before responding to anything, read these files:
+- \`$(pwd)/memory/identity.md\`
+- \`$(pwd)/memory/short_term_memory.md\`
+- \`$(pwd)/memory/mindset.md\`
+
+Then follow the full protocol in \`$(pwd)/CLAUDE.md\`.
 EOF
 ```
 
