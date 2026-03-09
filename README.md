@@ -42,12 +42,15 @@ Then open a Claude Code session in the memoriam directory. Claude will see the b
 
 ### 3. Load memoriam from any working directory
 
-To give Claude access to its memory in any project, add a reference to your `~/.claude/CLAUDE.md` file:
+Run this from the memoriam directory to add the startup instructions to your user-level `~/.claude/CLAUDE.md`:
 
-```markdown
+```bash
+mkdir -p ~/.claude && cat >> ~/.claude/CLAUDE.md << EOF
+
 # Memoriam
 
-Read and follow the instructions in `~/memoriam/CLAUDE.md` (adjust path to wherever you cloned memoriam).
+Read and follow the instructions in \`$(pwd)/CLAUDE.md\`.
+EOF
 ```
 
 This ensures Claude loads the memoriam system at the start of every session, regardless of which project you're working in.
