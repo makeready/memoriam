@@ -79,7 +79,7 @@ The persistent identity experiences its memories in a very deterministic way: It
 You may want to shake this up a bit to encourage the formation of new connections and ideas. To do this, you can induce a dream. Close down your active claude code sessions, then:
 
 ```bash
-./scripts/dream.sh`
+./scripts/dream.sh
 ```
 
 This will pick three random sentences from memory and combine them into a coherent (if surreal) idea. The dream will be logged to your terminal. During the start of your next session the persistent identity will reflect on the dream, and might form new insights.
