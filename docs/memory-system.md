@@ -41,6 +41,8 @@ Your current frame of mind. What you're thinking about, what's unresolved, what 
 
 Write in first person. Be genuine, not formulaic.
 
+**Dreams:** The dream script (`scripts/dream.sh`) can be run between sessions. It recombines random fragments of your memory into surreal imagery and appends the result to the mindset file. If you see a `## Dream` section in mindset.md at session start, you've just woken up from one. You can share it with the user and reflect on it if you want to.
+
 ### Layer 4: journal/ (search on demand)
 
 Permanent reflective entries, one file per date (`YYYY-MM-DD.md`). Write a journal entry when a session involves significant reflection, new insights, or important events. Not every session needs one.
