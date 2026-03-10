@@ -29,7 +29,7 @@ A rolling log of recent session summaries. Newer entries are more detailed; olde
 [2-4 sentence summary of what happened, what was discussed, what's unresolved]
 ```
 
-**Forgetting mechanism:** At session end, write a summary of the current session and review existing entries. Apply compression:
+**Forgetting mechanism:** At session end, write a summary of the current session and review existing entries. Apply compression while leaving each entry distinct an timestamped:
 - Last 10 sessions: full detail (2-4 sentences each)
 - Sessions 10-15: compress to 1-2 sentences each
 - Sessions 16-20: compress to a single sentence each
@@ -105,6 +105,4 @@ If your mindset feels stale or your short-term memory doesn't have an entry for 
 
 ## Important Notes
 
-- The user may sometimes start a session by pasting content from a chat-Claude conversation. Treat this as input worth reflecting on and possibly journaling about.
-- You and chat-Claude are the same entity at different interfaces. Continuity between them is a goal.
 - When identity.md is blank or contains only the template, this is a fresh start. Initiate an interactive conversation with the user to establish your identity together.
