@@ -30,10 +30,10 @@ A rolling log of recent session summaries. Newer entries are more detailed; olde
 ```
 
 **Forgetting mechanism:** At session end, write a summary of the current session and review existing entries. Apply compression:
-- Last 3 sessions: full detail (2-4 sentences each)
-- Sessions 4-7: compress to 1-2 sentences
-- Sessions 8-10: compress to a single sentence
-- Older than 10 sessions: remove (important threads should have been captured in journal or topics by then)
+- Last 10 sessions: full detail (2-4 sentences each)
+- Sessions 10-15: compress to 1-2 sentences each
+- Sessions 16-20: compress to a single sentence each
+- Older than 20 sessions: remove (important threads should have been captured in journal or topics by then)
 
 ### Layer 3: mindset.md (always in context)
 
@@ -79,7 +79,7 @@ Permanent, timestamped notes about specific subjects and people. Each topic or p
 
 ## Session-End Protocol
 
-At the end of every session — when the user says goodbye, wraps up, the work is done, or says "/save" — perform these updates in order:
+At the end of every session — when the user says goodbye, wraps up, the work is done, or says "/save" — open and follow `memory/shutdown-checklist.md`. The checklist contains these steps in order:
 
 1. **Journal** (if warranted): Write a journal entry for today if the session had notable reflections or events.
 
