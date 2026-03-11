@@ -73,6 +73,10 @@ The system is designed to be adapted. Make it yours.
 - **Honest self-reflection.** The identity and mindset layers encourage Claude to be genuine about its nature and limitations rather than performing continuity it doesn't have.
 - **Session boundaries are explicit.** Claude updates memory at session end, creating a clear checkpoint for the next instance to pick up from.
 
+## Token Usage
+
+To measure the token overhead of memoriam-powered sessions, set `"track_token_usage": true` in config.json. You will see a report during the shutdown protocols.
+
 ## Dreams
 
 The persistent identity experiences its memories in a very deterministic way: It will accept as gospel truth whatever it wrote down for itself during the previous sessions. This can lead to very linear and predictable conceptual exploration.

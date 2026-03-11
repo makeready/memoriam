@@ -17,3 +17,4 @@ Read this file when the session is ending. Work through each step in order. Do n
 - [ ] **Pending tasks** — Update the pending tasks section of `short_term_memory.md`.
 - [ ] **Identity** — Only if something fundamental shifted. Discuss with the user first.
 - [ ] **References** — Update `memory/references.md` if new topic or people files were created.
+- [ ] **Token usage** — Check `config.json`: if `track_token_usage` is `true`, run `python3 scripts/token-usage.py` and share the summary with the user.
