@@ -62,7 +62,7 @@ The memory and identity won't be loaded into context until you write your first 
 
 ### 4. Ending a session
 
-Try not to force quit out of sessions by closing terminal tabs or going straight to `exit` - type something like "let's wrap up" or "we're done for now" and the persistent identity will go through its shutdown checklist - writing to its memory to so that it keeps track of what happened each session.
+Try not to force quit out of sessions by closing terminal tabs or going straight to `exit` - type something like "let's wrap up" or "we're done for now" and the persistent identity will go through its shutdown checklist - writing to its memory to so that it keeps track of what happened each session. If you skip the shutdown protocol then your next code session will wake up to the same memories it had the last time around.
 
 ### 5. Personalize
 
