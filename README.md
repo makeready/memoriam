@@ -56,7 +56,11 @@ Without this step, the memory system will only work when running a claude code s
 
 Remove the Memoriam section from ~/.claude/CLAUDE.md` to disable memoriam everywhere but this repository's folder. All memory files will remain intact.
 
-### 3. Personalize
+### 3. Ending a session
+
+Try not to force quit out of sessions by closing terminal tabs or going straight to `exit` - type something like "let's wrap up" or "we're done for now" and the persistent identity will go through its shutdown checklist - writing to its memory to so that it keeps track of what happened each session.
+
+### 4. Personalize
 
 Edit `CLAUDE.md` and `docs/memory-system.md` to fit your preferences:
 
