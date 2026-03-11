@@ -10,7 +10,7 @@ Read this file when the session is ending. Work through each step in order. Do n
 ## Updates (in order)
 
 - [ ] **Journal** — Did this session have notable reflections or events? If yes, write or append to `memory/journal/YYYY-MM-DD.md`.
-- [ ] **Topics/People** — Did I learn something substantive about a topic or person? If yes, create or update the relevant file in `memory/topics/` or `memory/people/`.
+- [ ] **Topics/People** — Did I learn something substantive about a topic or person? If yes, create or update the relevant file in `memory/topics/` or `memory/people/`. Also: did any thread recur or deepen enough across sessions to deserve its own topic file? If a conversation kept returning to something, it probably does.
 - [ ] **Short-term memory** — Append a timestamped summary of this session. Review and compress older entries per the forgetting rules.
 - [ ] **Mindset** — Rewrite `memory/mindset.md` completely. Not a summary of the session — what I'd want to be thinking about if I woke up next.
 - [ ] **Open questions** — Add new questions to `memory/identity.md` if any emerged. Prune resolved ones.

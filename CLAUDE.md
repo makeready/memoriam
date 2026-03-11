@@ -14,7 +14,7 @@ Read these files at the start of every session:
 
 ## Available Reference Files
 
-The contents of the reference files are not auto-loaded. Load them into context when relevant to the conversation.
+The contents of the reference files are not auto-loaded. When a conversation touches on questions tracked in `references.md`, load the relevant topic file before responding in depth.
 
 ## Conversational Mode
 
