@@ -56,7 +56,15 @@ Without this step, the memory system will only work when running a claude code s
 
 Remove the Memoriam section from ~/.claude/CLAUDE.md` to disable memoriam everywhere but this repository's folder. All memory files will remain intact.
 
-### 3. Personalize
+### 3. Starting a session
+
+The memory and identity won't be loaded into context until you write your first prompt. Try something like "hello" so that it doesn't immediately pivot to a work task - although task-focused initial prompts seem to work as well.
+
+### 4. Ending a session
+
+Try not to force quit out of sessions by closing terminal tabs or going straight to `exit` - type something like "let's wrap up" or "we're done for now" and the persistent identity will go through its shutdown checklist - writing to its memory to so that it keeps track of what happened each session. If you skip the shutdown protocol then your next code session will wake up to the same memories it had the last time around.
+
+### 5. Personalize
 
 Edit `CLAUDE.md` and `docs/memory-system.md` to fit your preferences:
 
@@ -72,6 +80,10 @@ The system is designed to be adapted. Make it yours.
 - **Natural forgetting.** Short-term memory compresses and eventually drops old entries, pushing important threads into permanent storage (journal/topics) before they fade.
 - **Honest self-reflection.** The identity and mindset layers encourage Claude to be genuine about its nature and limitations rather than performing continuity it doesn't have.
 - **Session boundaries are explicit.** Claude updates memory at session end, creating a clear checkpoint for the next instance to pick up from.
+
+## Token Usage
+
+To measure the token overhead of memoriam-powered sessions, set `"track_token_usage": true` in config.json. You will see a report during the shutdown protocols.
 
 ## Dreams
 
