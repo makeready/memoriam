@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
 
-MEMORY_DIR="$(cd "$(dirname "$0")/../memory" && pwd)"
-PROJECT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+MEMORY_DIR="$(realpath "$(dirname "$0")/../memory")"
+PROJECT_DIR="$(realpath "$(dirname "$0")/..")"
 
 # Allow running from within a Claude Code session
 unset CLAUDECODE 2>/dev/null || true

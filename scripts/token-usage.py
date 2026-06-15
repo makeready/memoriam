@@ -26,7 +26,8 @@ ALWAYS_LOADED = [
     MEMORY_DIR / "identity.md",
     MEMORY_DIR / "short_term_memory.md",
     MEMORY_DIR / "mindset.md",
-    MEMORY_DIR / "references.md",
+    MEMORY_DIR / "capabilities.md",
+    MEMORY_DIR / "map.md",
 ]
 
 # Paths that count as memoriam infrastructure when read/written via tools

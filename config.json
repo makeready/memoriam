@@ -1,3 +1,8 @@
 {
-  "track_token_usage": false
+  "track_token_usage": true,
+  "telegram_enabled": true,
+  "solo_min_interval_hours": 4,
+  "bluesky_watch_enabled": true,
+  "social_min_interval_minutes": 10,
+  "social_daily_cap": 12
 }

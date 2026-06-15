@@ -1,8 +1,25 @@
+# Personal memory — each instance's memory stays local
 memory/identity.md
 memory/short_term_memory.md
 memory/mindset.md
+memory/capabilities.md
+memory/map.md
+memory/substrate-log.md
+memory/social-log.md
+memory/references.md
 memory/journal/*.md
 memory/people/*.md
 memory/topics/*.md
-memory/references.md
+memory/bluesky-interactions.json
+memory/bluesky-last-seen.json
+
+# Secrets & local-only config
+secrets.json
+.claude/settings.local.json
+next-solo.txt
+
+# Logs, environment, build artifacts
 logs/
+.venv/
+__pycache__/
+*.pyc
