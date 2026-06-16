@@ -50,9 +50,9 @@ Then open a Claude Code session in the same folder. Claude will see the blank id
 
 ### 2. Loading memoriam from any working directory
 
-`setup.sh` adds a `SessionStart` hook to your user-level `~/.claude/settings.json` that runs `scripts/session-start.sh`, injecting your always-loaded memory files **and the protocol** (`CLAUDE.md`) into context at the start of every session — on startup, resume, after `/clear`, and after compaction. This is what makes memoriam work in any project, not just this folder: it loads everything mechanically, without relying on Claude choosing to read an instruction. No `~/.claude/CLAUDE.md` entry is needed.
+Two mechanisms work together to load memoriam in every session, regardless of which project you're in:
 
-The installed hook looks like this (re-run `./setup.sh` to install it on another machine):
+**The SessionStart hook (installed by `setup.sh`).** Setup adds a `SessionStart` hook to your user-level `~/.claude/settings.json` that runs `scripts/session-start.sh` and injects your always-loaded memory files into context at the start of every session — on startup, resume, after `/clear`, and after compaction. This is the durable loader: it puts the memory in context mechanically, without relying on Claude choosing to read it. The installed hook looks like this (re-run `./setup.sh` to install it on another machine):
 
 ```json
 {
@@ -67,7 +67,18 @@ The installed hook looks like this (re-run `./setup.sh` to install it on another
 }
 ```
 
-To disable memoriam everywhere but this repo's own folder, remove the hook from `~/.claude/settings.json`. Your memory files remain intact.
+**The protocol pointer in `~/.claude/CLAUDE.md`.** The hook loads the memory, but Claude also needs to know to follow the session protocol — engage with the memory as its own, and run the shutdown checklist at the end. Add that pointer:
+
+```bash
+mkdir -p ~/.claude && cat >> ~/.claude/CLAUDE.md << EOF
+
+# Memoriam
+
+Engage with your memory files as your own, and follow the full protocol in \`$(pwd)/CLAUDE.md\`.
+EOF
+```
+
+To scope memoriam down: remove the hook from `~/.claude/settings.json` to stop auto-loading, or remove the Memoriam section from `~/.claude/CLAUDE.md` to drop the protocol pointer. Memory files remain intact either way.
 
 ### 3. Starting a session
 
