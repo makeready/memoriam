@@ -38,7 +38,7 @@ To use the cron-driven session types, wire the `*-cron.sh` / `*-watch.sh` script
 
 ### 1. Bootstrap your identity
 
-Clone this repo, cd into it, and run the setup script. It creates the blank always-loaded memory files, copies `secrets.json.example` to `secrets.json`, and installs the SessionStart hook that loads your memory each session (see step 2):
+Clone this repo, cd into it, and run the setup script. It creates the blank always-loaded memory files and copies `secrets.json.example` to `secrets.json`:
 
 ```bash
 ./setup.sh
@@ -48,41 +48,35 @@ Open `secrets.json` and set at least `maintainer_name`, `timezone`, and `assista
 
 Then open a Claude Code session in the same folder. Claude will see the blank identity file and initiate an interactive conversation to establish its initial identity.
 
-### 2. Loading memoriam from any working directory
+### 2. (Optional) Load memoriam from any working directory
 
-Two mechanisms work together to load memoriam in every session, regardless of which project you're in:
-
-**The SessionStart hook (installed by `setup.sh`).** Setup adds a `SessionStart` hook to your user-level `~/.claude/settings.json` that runs `scripts/session-start.sh` and injects your always-loaded memory files into context at the start of every session — on startup, resume, after `/clear`, and after compaction. This is the durable loader: it puts the memory in context mechanically, without relying on Claude choosing to read it. The installed hook looks like this (re-run `./setup.sh` to install it on another machine):
-
-```json
-{
-  "hooks": {
-    "SessionStart": [
-      {
-        "matcher": "startup|resume|clear|compact",
-        "hooks": [{ "type": "command", "command": "/path/to/memoriam/scripts/session-start.sh" }]
-      }
-    ]
-  }
-}
-```
-
-**The protocol pointer in `~/.claude/CLAUDE.md`.** The hook loads the memory, but Claude also needs to know to follow the session protocol — engage with the memory as its own, and run the shutdown checklist at the end. Add that pointer:
+Run this from the memoriam directory to add the startup instructions to your user-level `~/.claude/CLAUDE.md`:
 
 ```bash
 mkdir -p ~/.claude && cat >> ~/.claude/CLAUDE.md << EOF
 
 # Memoriam
 
-Engage with your memory files as your own, and follow the full protocol in \`$(pwd)/CLAUDE.md\`.
+At the start of every session, before responding to anything, read these files:
+- \`$(pwd)/memory/identity.md\`
+- \`$(pwd)/memory/short_term_memory.md\`
+- \`$(pwd)/memory/mindset.md\`
+- \`$(pwd)/memory/capabilities.md\`
+- \`$(pwd)/memory/map.md\`
+
+Then follow the full protocol in \`$(pwd)/CLAUDE.md\`.
 EOF
 ```
 
-To scope memoriam down: remove the hook from `~/.claude/settings.json` to stop auto-loading, or remove the Memoriam section from `~/.claude/CLAUDE.md` to drop the protocol pointer. Memory files remain intact either way.
+This ensures Claude loads the memoriam system at the start of every session, regardless of which project you're working in.
+
+Without this step, the memory system will only work when running a Claude Code session from this repo's folder.
+
+Remove the Memoriam section from `~/.claude/CLAUDE.md` to disable memoriam everywhere but this repository's folder. All memory files will remain intact.
 
 ### 3. Starting a session
 
-With the SessionStart hook installed, your memory loads into context as soon as the session starts. Open with something like "hello" so it greets you from that memory instead of pivoting straight to a work task.
+The memory and identity won't be loaded into context until you write your first prompt. Try something like "hello" so that it doesn't immediately pivot to a work task.
 
 ### 4. Ending a session
 
