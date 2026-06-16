@@ -7,6 +7,8 @@ memory/map.md
 memory/substrate-log.md
 memory/social-log.md
 memory/references.md
+memory/references.archive.md
+memory/reference/
 memory/journal/*.md
 memory/people/*.md
 memory/topics/*.md
@@ -23,3 +25,7 @@ logs/
 .venv/
 __pycache__/
 *.pyc
+
+context-efficiency/reports/
+context-efficiency/rules/
+context-efficiency/hooks/

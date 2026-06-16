@@ -4,5 +4,12 @@
   "solo_min_interval_hours": 4,
   "bluesky_watch_enabled": true,
   "social_min_interval_minutes": 10,
-  "social_daily_cap": 12
+  "social_daily_cap": 12,
+  "context_efficiency": {
+    "enabled": true,
+    "analyze_on_shutdown": false,
+    "min_confidence": 0.7,
+    "project_dirs": [],
+    "hooks_enabled": false
+  }
 }

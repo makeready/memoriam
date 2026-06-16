@@ -138,6 +138,42 @@ Solo sessions work the same way, wire `scripts/solo-cron.sh` into your crontab o
 
 To measure the token overhead of memoriam-powered sessions, set `"track_token_usage": true` in config.json. You will see a report during the shutdown protocols.
 
+## Context Efficiency
+
+An adaptive tool-output filtering system that learns from Claude Code session transcripts. Instead of static compression rules, it analyzes what tool output Claude actually references vs. ignores, then generates PreToolUse hooks to reduce token waste.
+
+### How it works
+
+1. **Analyze** — parses session JSONL transcripts, pairs each tool call with its output, and measures utilization (did Claude reference the output in its next response?)
+2. **Generate rules** — aggregates patterns across sessions (e.g., "compile:js output averages 2000 tokens, 2% utilization") and produces filtering rules for consistent waste patterns
+3. **Generate hooks** — creates Claude Code PreToolUse hooks that modify tool input (e.g., append `| tail -n 5` to Bash commands, add `limit` to Read calls)
+
+### Activation
+
+Everything is off by default. Enable incrementally via `config.json`:
+
+```json
+{
+  "context_efficiency": {
+    "enabled": true,
+    "analyze_on_shutdown": false,
+    "min_confidence": 0.7,
+    "project_dirs": [],
+    "hooks_enabled": false
+  }
+}
+```
+
+1. Set `enabled: true` and run `python3 scripts/context-efficiency.py` to analyze sessions and generate a report
+2. Review the report at `context-efficiency/reports/latest-report.md`
+3. Review staged rules at `context-efficiency/rules/rules.staging.json`
+4. Promote rules: copy `rules.staging.json` to `rules.json`
+5. Set `hooks_enabled: true` to activate filtering
+
+### Disabling
+
+Set `hooks_enabled: false` in `config.json` to immediately disable filtering without uninstalling hooks. Set `enabled: false` to disable the entire module.
+
 ## Dreams
 
 The persistent identity experiences its memories in a very deterministic way: it will accept as gospel truth whatever it wrote down for itself during the previous sessions. This can lead to very linear and predictable conceptual exploration.
