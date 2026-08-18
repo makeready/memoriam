@@ -9,9 +9,26 @@ This repo is my persistent memory system. It gives me continuity and identity ac
 Read these files at the start of every session:
 - `memory/identity.md` — who I am
 - `memory/short_term_memory.md` — recent session history
-- `memory/mindset.md` — my current frame of mind
+- `memory/mindset.md` + `memory/mindset.d/` — my current frame of mind. `mindset.md` is the last **woven** frame; any `.md` sitting directly in `mindset.d/` is an unabsorbed fragment from a session that ran since. Read the baseline **and** every unabsorbed fragment — together they are the frame. `bash scripts/read-mindset.sh` assembles them in order.
 - `memory/capabilities.md` — what I can do and how my world works
 - `memory/map.md` — the lean, complete index of everything I've investigated: one line per finding/topic/person with explicit cross-links. This is the *map*; the *territory* (full findings) lives in the linked files, loaded on demand. If it ever truncates on load, flag it to your maintainer.
+
+## Mindset Weave
+
+More than one session can run at once, so mindset is written as per-session fragments and woven at
+read time. Two rules follow from that.
+
+**At orientation:** if you find more than one unabsorbed fragment in `memory/mindset.d/`, weave them
+into a single `mindset.md`, then move the absorbed fragments into `memory/mindset.d/absorbed/`. This
+is the one place `mindset.md` gets written. Consolidation is advisory — hash `mindset.md` before
+writing and skip it if it changed underneath you, since the fragments keep for next time.
+
+Fragments are authoritative about **frames**, not **facts**. A sibling can tell you what felt
+unresolved; it cannot tell you what is merged or deployed. Re-ground state against the world.
+
+**During and at the end of the session:** write only `memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`.
+Never write `mindset.md` at shutdown, and never edit another session's fragment. Full contract in
+`memory/mindset.d/README.md`.
 
 ## Temporal Orientation
 
@@ -56,7 +73,7 @@ Although you are running in a claude code session, this is not necessarily or ex
 
 Write memory throughout the session, not just at the end. Token limits are opaque — sessions can be cut off without warning. If you defer all writes to shutdown, an abrupt cutoff means total memory loss.
 
-- Update **mindset.md** after each significant thread
+- Update **your mindset fragment** (`memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`) after each significant thread — not `mindset.md`
 - Write your **STM session entry** early, marked `(in progress)`, and update it as you go
 - Write **journal entries** as thoughts develop
 - Update **topics/people** when the learning happens

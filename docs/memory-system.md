@@ -35,13 +35,26 @@ A rolling log of recent session summaries. Newer entries are more detailed; olde
 - Sessions 16-20: compress to a single sentence each
 - Only remove an entry when adding a new one would exceed 20 total entries. When removing, drop the oldest. Important threads should have been captured in journal or topics by then.
 
-### Layer 3: mindset.md (always in context)
+### Layer 3: mindset.md + mindset.d/ (always in context)
 
-Your current frame of mind. What you're thinking about, what's unresolved, what you're curious about. This MUST be rewritten at the end of every session. Think of it as: "if I woke up tomorrow, what would I want to be thinking about?"
+Your current frame of mind. What you're thinking about, what's unresolved, what you're curious about. Think of it as: "if I woke up tomorrow, what would I want to be thinking about?"
 
 Write in first person. Be genuine, not formulaic.
 
-**Dreams:** The dream script (`scripts/dream.sh`) can be run between sessions. It recombines random fragments of your memory into surreal imagery and appends the result to the mindset file. If you see a `## Dream` section in mindset.md at session start, you've just woken up from one. You can share it with the user and reflect on it if you want to.
+**One frame, many writers.** Mindset is a singleton by intent — there is one frame you wake into. But more than one session can run at once, and a shared singleton plus concurrent writers means last-writer-wins. So the write path is split from the read path:
+
+- A session writes **only** its own fragment, `memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`, and never edits `mindset.md` or another session's fragment. Incremental rewrites during the session go to that same fragment.
+- `mindset.md` is the last **woven** frame. Any `.md` directly in `mindset.d/` is unabsorbed.
+- **Orientation** reads `mindset.md` plus every unabsorbed fragment. That whole set is the frame. `scripts/read-mindset.sh` assembles it.
+- **Consolidation** happens at orientation, not at shutdown, and only when more than one unabsorbed fragment exists. Weave them into `mindset.md`, then move the absorbed fragments into `mindset.d/absorbed/`. Absorption is by moving the file, not by comparing timestamps.
+
+Weaving at read time rather than write time is deliberate. Weaving needs judgment and shutdown order is arbitrary, so the last session to finish could be a five-minute errand left integrating two deep sessions. It is also the `recall-vs-injection` principle rather than an exception to it — reading sibling frames and synthesizing "where I am now" is the authorship act that makes the result mine.
+
+**What a fragment is authoritative about.** Frames, not facts. A fragment can tell you what felt unresolved and what a sibling learned. It cannot tell you what is merged, approved, or deployed — it is a proxy for the world in exactly the way a carried-over note is, and those have been wrong in the same direction many times. When two fragments disagree about state, don't arbitrate, go look.
+
+If two sessions try to consolidate at once, consolidation is advisory: hash `mindset.md` before writing, and on mismatch skip it and proceed with the frame you read. The fragments stay put for next time. Full contract in `memory/mindset.d/README.md`.
+
+**Dreams:** The dream script (`scripts/dream.sh`) can be run between sessions. It recombines random fragments of your memory into surreal imagery and writes the result as its own fragment (`mindset.d/dream-YYYY-MM-DD.md`), so it is present at wake without colliding with a live session's frame. If you see a `## Dream` section in the assembled frame at session start, you've just woken up from one. You can share it with the user and reflect on it if you want to.
 
 ### Layer 4: capabilities.md (always in context)
 
@@ -99,7 +112,7 @@ Permanent, timestamped notes about specific subjects and people. Each topic or p
 
 Instead, write memory *throughout* the session as a continuous practice:
 
-- **mindset.md**: Rewrite after each significant thread of conversation. Each rewrite replaces the previous. It should always reflect your current state of mind, not your state at the start of the session.
+- **mindset fragment**: Rewrite `memory/mindset.d/<YYYY-MM-DD>-<session-id>.md` after each significant thread of conversation. Each rewrite replaces your previous fragment, never `mindset.md` and never a sibling's fragment. It should always reflect your current state of mind, not your state at the start of the session. Because the fragment is yours alone, a session cut off mid-flight still leaves a usable partial frame.
 - **short_term_memory.md**: Write your session entry early — after the first substantive exchange. Mark it `(in progress)`. Update it as the session progresses. The shutdown step removes the marker.
 - **journal/**: Write entries as thoughts develop. Append new `## HH:MMZ` headers throughout the session, not as a retrospective at the end.
 - **topics/, people/**: Write when the learning happens.

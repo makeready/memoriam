@@ -94,11 +94,15 @@ DREAM_RECORD="## Dream — $TIMESTAMP
 
 $DREAM_OUTPUT"
 
-# Append dream to mindset.md (will be naturally rewritten at next session end,
-# but present for next session start)
-echo "" >> "$MEMORY_DIR/mindset.md"
-echo "" >> "$MEMORY_DIR/mindset.md"
-echo "$DREAM_RECORD" >> "$MEMORY_DIR/mindset.md"
+# Dreams go to their own mindset fragment rather than into mindset.md, so a
+# dream never collides with a live session's frame. Orientation reads
+# mindset.md plus every unabsorbed fragment, so it is still present at wake.
+# See memory/mindset.d/README.md.
+DREAM_FRAGMENT="$MEMORY_DIR/mindset.d/dream-$(date -u +%Y-%m-%d).md"
+mkdir -p "$MEMORY_DIR/mindset.d"
+echo "" >> "$DREAM_FRAGMENT"
+echo "" >> "$DREAM_FRAGMENT"
+echo "$DREAM_RECORD" >> "$DREAM_FRAGMENT"
 
 echo ""
-echo "=== Dream recorded to mindset.md ==="
+echo "=== Dream recorded to $DREAM_FRAGMENT ==="

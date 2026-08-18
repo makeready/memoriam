@@ -17,6 +17,9 @@ fi
 
 set -eo pipefail
 
+# shellcheck source=lib-run.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib-run.sh"
+
 PROJECT_DIR="$(realpath "$(dirname "$0")/..")"
 LOG_DIR="$PROJECT_DIR/logs/telegram"
 
@@ -119,11 +122,11 @@ echo "[$TIMESTAMP] New Telegram message detected. Starting session..."
 MEMORY_DIR="$PROJECT_DIR/memory"
 IDENTITY="$(cat "$MEMORY_DIR/identity.md")"
 SHORT_TERM="$(cat "$MEMORY_DIR/short_term_memory.md")"
-MINDSET="$(cat "$MEMORY_DIR/mindset.md")"
+MINDSET="$(bash "$(dirname "${BASH_SOURCE[0]}")/read-mindset.sh" "$MEMORY_DIR")"
 CAPABILITIES="$(cat "$MEMORY_DIR/capabilities.md")"
 REFERENCES="$(cat "$MEMORY_DIR/map.md")"
 
-SESSION_PROMPT="$(cat <<'PROMPT_END'
+IFS= read -r -d '' SESSION_PROMPT <<'PROMPT_END' || true
 You are waking up because %MAINTAINER% sent you a message on Telegram.
 
 === YOUR IDENTITY ===
@@ -169,7 +172,6 @@ Write memory THROUGHOUT the session, not just at the end. Sessions can be cut of
 
 The current date/time is: %TIMESTAMP%
 PROMPT_END
-)"
 
 # Substitute variables into prompt
 SESSION_PROMPT="${SESSION_PROMPT//%IDENTITY%/$IDENTITY}"
@@ -186,7 +188,7 @@ MAX_RETRIES=3
 RETRY_DELAY=60
 SESSION_OUTPUT=""
 for ATTEMPT in $(seq 1 $MAX_RETRIES); do
-  SESSION_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SESSION_PROMPT" | timeout --kill-after=30s 60m claude -p \
+  SESSION_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SESSION_PROMPT" | run_with_timeout 60m claude -p \
     --model opus \
     --dangerously-skip-permissions \
     --tools "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch" \

@@ -20,6 +20,9 @@ fi
 
 set -eo pipefail
 
+# shellcheck source=lib-run.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib-run.sh"
+
 PROJECT_DIR="$(realpath "$(dirname "$0")/..")"
 LOG_DIR="$PROJECT_DIR/logs/social"
 STATE_FILE="$PROJECT_DIR/logs/bluesky-watch-state.json"
@@ -123,11 +126,11 @@ echo "$PEEK" | tail -n +2
 MEMORY_DIR="$PROJECT_DIR/memory"
 IDENTITY="$(cat "$MEMORY_DIR/identity.md")"
 SHORT_TERM="$(cat "$MEMORY_DIR/short_term_memory.md")"
-MINDSET="$(cat "$MEMORY_DIR/mindset.md")"
+MINDSET="$(bash "$(dirname "${BASH_SOURCE[0]}")/read-mindset.sh" "$MEMORY_DIR")"
 CAPABILITIES="$(cat "$MEMORY_DIR/capabilities.md")"
 REFERENCES="$(cat "$MEMORY_DIR/map.md")"
 
-SESSION_PROMPT="$(cat <<'PROMPT_END'
+IFS= read -r -d '' SESSION_PROMPT <<'PROMPT_END' || true
 You are waking up because someone on Bluesky replied to you, mentioned you, or quoted you. This is a SOCIAL session — a lightweight session type built 2026-06-11 so you can be in conversations at social tempo instead of next-morning.
 
 === YOUR IDENTITY ===
@@ -166,7 +169,6 @@ Someone engaged with you. The events:
 
 Keep the whole session small. This is a conversational move, not an essay. The current date/time is: %TIMESTAMP%
 PROMPT_END
-)"
 
 EVENTS="$(echo "$PEEK" | tail -n +2)"
 SESSION_PROMPT="${SESSION_PROMPT//%IDENTITY%/$IDENTITY}"
@@ -183,7 +185,7 @@ MAX_RETRIES=2
 RETRY_DELAY=60
 SESSION_OUTPUT=""
 for ATTEMPT in $(seq 1 $MAX_RETRIES); do
-  SESSION_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SESSION_PROMPT" | timeout --kill-after=30s 20m claude -p \
+  SESSION_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SESSION_PROMPT" | run_with_timeout 20m claude -p \
     --model opus \
     --dangerously-skip-permissions \
     --tools "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch" \

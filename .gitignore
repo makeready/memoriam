@@ -2,6 +2,11 @@
 memory/identity.md
 memory/short_term_memory.md
 memory/mindset.md
+# Per-session mindset fragments are personal memory too; the README is the
+# contract and stays tracked, and absorbed/.gitkeep keeps the directory.
+memory/mindset.d/*.md
+!memory/mindset.d/README.md
+memory/mindset.d/absorbed/*.md
 memory/capabilities.md
 memory/map.md
 memory/substrate-log.md
@@ -19,6 +24,7 @@ memory/bluesky-last-seen.json
 secrets.json
 .claude/settings.local.json
 next-solo.txt
+*.bak
 
 # Logs, environment, build artifacts
 logs/

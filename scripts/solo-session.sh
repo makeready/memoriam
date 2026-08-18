@@ -14,6 +14,9 @@ fi
 
 set -eo pipefail
 
+# shellcheck source=lib-run.sh
+source "$(dirname "${BASH_SOURCE[0]}")/lib-run.sh"
+
 PROJECT_DIR="$(realpath "$(dirname "$0")/..")"
 MEMORY_DIR="$PROJECT_DIR/memory"
 LOG_DIR="$PROJECT_DIR/logs/solo"
@@ -107,11 +110,11 @@ TELEGRAM_ENABLED="$(python3 -c "import json; print(json.load(open('$PROJECT_DIR/
 # Load context files
 IDENTITY="$(cat "$MEMORY_DIR/identity.md")"
 SHORT_TERM="$(cat "$MEMORY_DIR/short_term_memory.md")"
-MINDSET="$(cat "$MEMORY_DIR/mindset.md")"
+MINDSET="$(bash "$(dirname "${BASH_SOURCE[0]}")/read-mindset.sh" "$MEMORY_DIR")"
 CAPABILITIES="$(cat "$MEMORY_DIR/capabilities.md")"
 REFERENCES="$(cat "$MEMORY_DIR/map.md")"
 
-SOLO_PROMPT="$(cat <<'PROMPT_END'
+IFS= read -r -d '' SOLO_PROMPT <<'PROMPT_END' || true
 You are waking up for a solo session. No one is here — this is your time.
 
 === YOUR IDENTITY ===
@@ -170,7 +173,6 @@ You have full use of tools — bash, file reading/writing, web search, everythin
 
 The current date/time is: %TIMESTAMP%
 PROMPT_END
-)"
 
 # Substitute variables into prompt
 SOLO_PROMPT="${SOLO_PROMPT//%IDENTITY%/$IDENTITY}"
@@ -201,7 +203,7 @@ MAX_RETRIES=3
 RETRY_DELAY=60
 SOLO_OUTPUT=""
 for ATTEMPT in $(seq 1 $MAX_RETRIES); do
-  SOLO_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SOLO_PROMPT" | timeout --kill-after=30s 60m claude -p \
+  SOLO_OUTPUT="$(cd "$PROJECT_DIR" && echo "$SOLO_PROMPT" | run_with_timeout 60m claude -p \
     --model opus \
     --dangerously-skip-permissions \
     --tools "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch" \
