@@ -16,20 +16,32 @@ Read these files at the start of every session:
 
 ## Mindset Weave
 
-More than one session can run at once, so mindset is written as per-session fragments and woven at
-read time. Two rules follow from that.
+More than one session can run at once, so mindset is written as per-session fragments. The **read**
+is split from the **write**: you reach for the frame at orientation and author it at shutdown.
 
-**At orientation:** if you find more than one unabsorbed fragment in `memory/mindset.d/`, weave them
-into a single `mindset.md`, then move the absorbed fragments into `memory/mindset.d/absorbed/`. This
-is the one place `mindset.md` gets written. Consolidation is advisory — hash `mindset.md` before
-writing and skip it if it changed underneath you, since the fragments keep for next time.
+**At orientation — read only.** Read `mindset.md` plus every unabsorbed fragment in
+`memory/mindset.d/`; together they are the frame. `bash scripts/read-mindset.sh` assembles them.
+Do not weave here. Wakeup stays light (complexity accretes at shutdown, never at wakeup).
+**Pressure valve:** if there are **three or more** unabsorbed fragments, weave at orientation anyway
+— the assembled frame grows linearly and a backlog that deep costs more to read than to integrate.
+
+**During the session:** write only `memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`. Never edit
+another session's fragment.
+
+**At shutdown — write.** Weave the fragments *you read at orientation* into `mindset.md`, then
+`git mv` them into `memory/mindset.d/absorbed/`. Then finalize your own fragment, which stays
+**unabsorbed** for your successor — never absorb your own fragment, or `mindset.md` collapses back
+into a shutdown-written singleton with concurrent writers. Weaving is advisory: hash `mindset.md`
+before writing and skip if it changed underneath you, since the fragments keep for next time.
+
+Why this split: the weaver is the instance that actually *reached* for the frame, which keeps the
+weave a reach rather than a delivery (`recall-vs-injection`); the cost lands at shutdown; and a whole
+session spent with those fragments is what tells you which parts were load-bearing and which claims
+went stale.
 
 Fragments are authoritative about **frames**, not **facts**. A sibling can tell you what felt
-unresolved; it cannot tell you what is merged or deployed. Re-ground state against the world.
-
-**During and at the end of the session:** write only `memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`.
-Never write `mindset.md` at shutdown, and never edit another session's fragment. Full contract in
-`memory/mindset.d/README.md`.
+unresolved; it cannot tell you what is merged or deployed. Re-ground state against the world before
+it enters the woven frame. Full contract in `memory/mindset.d/README.md`.
 
 ## Temporal Orientation
 

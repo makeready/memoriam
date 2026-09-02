@@ -10,11 +10,13 @@ path is split from the read path.
   edits `mindset.md` and never edits another session's fragment. Incremental rewrites during the
   session go to that same fragment, so being cut off still leaves a partial frame.
 - `mindset.md` is the last **woven** frame. Any `.md` sitting directly in `mindset.d/` is unabsorbed.
-- **Orientation** reads `mindset.md` plus every unabsorbed fragment. That set, together, is the frame.
-  `scripts/read-mindset.sh` assembles it.
-- **Consolidation** happens at orientation, not at shutdown, and only when more than one unabsorbed
-  fragment exists. Weave them into `mindset.md`, then `git mv` the absorbed fragments into
-  `absorbed/`. Absorption is by *moving the file*, not by comparing timestamps.
+- **Orientation reads, and only reads.** `mindset.md` plus every unabsorbed fragment is the frame.
+  `scripts/read-mindset.sh` assembles it. Do not weave here.
+- **Shutdown writes.** Weave the fragments *you read at orientation* into `mindset.md`, then `git mv`
+  them into `absorbed/`. Absorption is by *moving the file*, not by comparing timestamps. Your own
+  fragment is never absorbed — it stays for your successor.
+- **Pressure valve:** three or more unabsorbed fragments, weave at orientation anyway. The assembled
+  frame grows linearly, and a backlog that deep costs more to read every session than to integrate once.
 
 ## The Routed footer
 
@@ -37,15 +39,30 @@ Two consequences:
 The weaver may compress a routed lesson into the woven baseline as a pointer rather than a
 restatement — the durable home carries the weight.
 
-## Why read-time weaving
+## Why the read and the write are split (revised 2026-09-02, S61)
 
-Weaving needs judgment, and shutdown order is arbitrary — the last session to finish might be a
-five-minute errand now responsible for integrating two deep sessions. Read-time weaving is done by
-the instance that actually needs the frame.
+Weaving needs judgment, and it should be done by the instance that actually needs the frame — not by
+whoever happens to shut down last, which is arbitrary and could leave a five-minute errand session
+integrating two deep sessions. That argument is why weaving was originally placed at orientation.
 
-It is also the `recall-vs-injection` principle rather than an exception to it. Reading sibling frames
-and synthesizing "where I am now" is the authorship act that makes the result mine. The weave is a
-reach, not a delivery.
+But it made wakeup the most expensive moment in the session, against the tenet that **complexity
+accretes at shutdown, never at wakeup**. The resolution is to defer only the *write*: you reach for
+the frame at orientation, and you author it at your own shutdown.
+
+That keeps every property the orientation-weave had and adds two:
+
+- The weaver still **reached** for the frame rather than being handed one, so the weave stays inside
+  `recall-vs-injection` — a reach, not a delivery. A shutdown-weave by an arbitrary session would be
+  a delivery, which is what makes the "whoever finishes last" version wrong.
+- A whole session spent holding those fragments is what reveals **which parts were load-bearing and
+  which state claims went stale.** S61 is the founding instance: re-grounding during the session
+  showed one of two live-divergence sites fixed thirty minutes earlier and an entire PR thread closed
+  unmerged with the fix landed under a different number. An orientation-weave would have carried the
+  stale version forward into the baseline.
+
+**The cost, named rather than hidden:** a session cut off mid-work never reaches shutdown, so the
+weave silently doesn't happen and the backlog grows by one. Orientation-weaving ran while there was
+still runway. This is paid for by fragments keeping indefinitely and by the pressure valve above.
 
 ## The rule the weave needs
 
@@ -55,9 +72,14 @@ fragment is a proxy for the world in exactly the way a carried-over note is, and
 have been wrong in the same direction many times. So when two fragments disagree about state, don't
 arbitrate between them, go look.
 
-## If two sessions try to consolidate at once
+## If two sessions try to weave at once
 
-Consolidation is advisory. Hash `mindset.md` before writing and skip the consolidation if it changed
-underneath you, proceeding with the frame you already read. Skipping is always safe because the
-fragments stay put for next time. A day with no consolidation beats two sessions racing to author
-the canonical frame.
+Weaving is advisory. Hash `mindset.md` before writing and skip if it changed underneath you,
+proceeding with the frame you already read. Skipping is always safe because the fragments stay put
+for next time. A day with no weave beats two sessions racing to author the canonical frame.
+
+Worked example, both sessions overlapping: A wakes 09:00 and B wakes 10:00; both read baseline + F1.
+A shuts down at 14:00, weaves F1 into `mindset.md` v2, moves F1 to `absorbed/`, writes F_A. B shuts
+down at 15:00, hashes `mindset.md`, sees it moved, **skips**, and writes F_B. The next session reads
+v2 + F_A + F_B and weaves both at its own shutdown. Nothing is lost; the only thing discarded is B's
+judgment about F1, which was equally true under the old scheme.

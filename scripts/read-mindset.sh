@@ -28,7 +28,12 @@ if [ "${#fragments[@]}" -gt 0 ]; then
   printf '\n\n---\n\n'
   printf '## Unabsorbed session fragments (%d)\n\n' "${#fragments[@]}"
   printf 'These were written by sessions that ran since mindset.md was last woven.\n'
-  printf 'Weave them into mindset.md and move them to absorbed/ once integrated.\n'
+  printf 'Read them now as part of the frame. Weave them into mindset.md at THIS\n'
+  printf "session's shutdown, then git mv them to absorbed/ (never your own fragment).\n"
+  if [ "${#fragments[@]}" -ge 3 ]; then
+    printf 'NOTE: %d unabsorbed fragments — at 3+ the pressure valve applies, so weave\n' "${#fragments[@]}"
+    printf 'at orientation instead of deferring to shutdown.\n'
+  fi
   for f in "${fragments[@]}"; do
     printf '\n### fragment: %s\n\n' "$(basename "$f")"
     cat "$f"
