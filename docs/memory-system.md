@@ -79,7 +79,9 @@ lines ("be careful about X") are wallpaper; reject them.
 correction, a review finding, a CI failure — never self-assessed vigilance): each register instance
 since the last pass is bucketed *listed-and-fired* / *listed-and-missed* / *unlisted-new*.
 Effectiveness is listed-and-missed declining. Dormant lines (no trigger encountered across passes)
-are retirement candidates.
+are retirement candidates. Tag each bucketed instance with the substrate the session ran on (session
+records carry it): if the substrate layer is reflexes, register recurrence may vary by model, and
+tagging makes that hypothesis checkable for free.
 
 ### Layer 5: map.md (always in context)
 
