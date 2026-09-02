@@ -21,14 +21,24 @@ MEMORY_DIR = PROJECT_DIR / "memory"
 LOGS_DIR = PROJECT_DIR / "logs"
 CLAUDE_PROJECT_DIR = Path.home() / ".claude" / "projects" / str(PROJECT_DIR).replace("/", "-")
 
-# Files that are always loaded into context at session start
-ALWAYS_LOADED = [
-    MEMORY_DIR / "identity.md",
-    MEMORY_DIR / "short_term_memory.md",
-    MEMORY_DIR / "mindset.md",
-    MEMORY_DIR / "capabilities.md",
-    MEMORY_DIR / "map.md",
-]
+# Files that are always loaded into context at session start.
+# mindset.d/ unabsorbed fragments are part of the frame (read-mindset.sh
+# assembles mindset.md + fragments), so they count; absorbed/ and README do not.
+def always_loaded_files():
+    files = [
+        MEMORY_DIR / "identity.md",
+        MEMORY_DIR / "short_term_memory.md",
+        MEMORY_DIR / "mindset.md",
+        MEMORY_DIR / "defences.md",
+        MEMORY_DIR / "capabilities.md",
+        MEMORY_DIR / "map.md",
+    ]
+    frag_dir = MEMORY_DIR / "mindset.d"
+    if frag_dir.is_dir():
+        files += sorted(
+            f for f in frag_dir.glob("*.md") if f.name != "README.md"
+        )
+    return [f for f in files if f.exists()]
 
 # Paths that count as memoriam infrastructure when read/written via tools
 MEMORIAM_PATH_PREFIXES = [
@@ -45,15 +55,24 @@ def estimate_tokens(text: str) -> int:
 
 
 def find_latest_session() -> Path:
-    """Find the most recently modified session JSONL."""
+    """Find the most recently modified session JSONL.
+
+    Sessions are usually launched from the home directory, not this repo, so
+    the repo's own project dir is often stale. Search every project dir and
+    take the newest jsonl — running this script is itself activity in the
+    session of interest, so newest is the right heuristic.
+    """
+    projects_root = Path.home() / ".claude" / "projects"
     jsonls = sorted(
-        CLAUDE_PROJECT_DIR.glob("*.jsonl"),
+        projects_root.glob("*/*.jsonl"),
         key=lambda p: p.stat().st_mtime,
         reverse=True,
     )
     if not jsonls:
         print("No session JSONL files found.", file=sys.stderr)
         sys.exit(1)
+    if jsonls[0].parent != CLAUDE_PROJECT_DIR:
+        print(f"(session found under {jsonls[0].parent.name}, not the repo project dir)")
     return jsonls[0]
 
 
@@ -136,7 +155,7 @@ def measure_context_overhead() -> dict:
     """Measure the token size of always-loaded memoriam files."""
     files = {}
     total_chars = 0
-    for path in ALWAYS_LOADED:
+    for path in always_loaded_files():
         if path.exists():
             size = len(path.read_text())
             files[path.name] = {"chars": size, "est_tokens": estimate_tokens(path.read_text())}
@@ -151,6 +170,48 @@ def measure_context_overhead() -> dict:
 
     total_tokens = estimate_tokens("x" * total_chars)
     return {"files": files, "total_est_tokens": total_tokens}
+
+
+TOKEN_BUDGET_PER_CALL = 40_000  # flag when the always-loaded layer exceeds this
+STM_ENTRY_BUDGET = 6_000        # chars; entries above this want routing, not carrying
+MAP_NODE_BUDGET = 600           # chars; nodes above this are carrying detail, not a hook
+DEFENCES_CAP = 20               # lines; the hard cap from docs/memory-system.md
+
+
+def lint_memory() -> dict:
+    """Structural health of the memory files — the mirror, not a hand."""
+    out = {}
+
+    stm = MEMORY_DIR / "short_term_memory.md"
+    if stm.exists():
+        import re
+        text = stm.read_text()
+        marks = [(m.start(), m.group(0).strip()) for m in re.finditer(r"^### .*$", text, re.M)]
+        marks.append((len(text), ""))
+        entries = [(b - a, t) for (a, t), (b, _) in zip(marks, marks[1:])]
+        out["stm_entries"] = entries
+        out["stm_over_budget"] = [(n, t) for n, t in entries if n > STM_ENTRY_BUDGET]
+
+    mp = MEMORY_DIR / "map.md"
+    if mp.exists():
+        import statistics
+        lens = [len(l) for l in mp.read_text().splitlines() if l.startswith("- `")]
+        if lens:
+            out["map_nodes"] = len(lens)
+            out["map_node_median"] = statistics.median(lens)
+            out["map_over_budget"] = len([n for n in lens if n > MAP_NODE_BUDGET])
+
+    d = MEMORY_DIR / "defences.md"
+    if d.exists():
+        n = len([l for l in d.read_text().splitlines() if re.match(r"^\d+\. ", l)])
+        out["defences_lines"] = n
+
+    frag_dir = MEMORY_DIR / "mindset.d"
+    frags = [f for f in frag_dir.glob("*.md") if f.name != "README.md"] if frag_dir.is_dir() else []
+    out["unabsorbed_fragments"] = len(frags)
+    out["fragment_chars"] = sum(len(f.read_text()) for f in frags)
+
+    return out
 
 
 def main():
@@ -204,6 +265,25 @@ def main():
         pct = (estimated_memoriam_context / total_input) * 100
         print(f"  Estimated overhead:    {pct:>9.1f}% of input tokens")
     print()
+    lint = lint_memory()
+    print("--- Memory Lint (the mirror) ---")
+    if "stm_entries" in lint:
+        worst = sorted(lint["stm_entries"], reverse=True)[:3]
+        for n, t in worst:
+            flag = "  ** over budget — route detail down-tier" if n > STM_ENTRY_BUDGET else ""
+            print(f"  STM {n:>6} chars  {t[:60]}{flag}")
+    if "map_nodes" in lint:
+        print(f"  Map: {lint['map_nodes']} nodes, median {lint['map_node_median']:.0f} chars, "
+              f"{lint['map_over_budget']} over {MAP_NODE_BUDGET}")
+    if "defences_lines" in lint:
+        over = " ** OVER CAP" if lint["defences_lines"] > DEFENCES_CAP else ""
+        print(f"  Defences: {lint['defences_lines']}/{DEFENCES_CAP} lines{over}")
+    print(f"  Unabsorbed fragments: {lint['unabsorbed_fragments']} ({lint['fragment_chars']:,} chars)")
+    if context_tokens_per_call > TOKEN_BUDGET_PER_CALL:
+        print(f"  ** Always-loaded layer is {context_tokens_per_call:,} est. tokens/call "
+              f"(budget {TOKEN_BUDGET_PER_CALL:,}) — a compression pass is owed; "
+              f"open the next session with it as a named task.")
+    print()
     print("Note: Cache reads are ~10x cheaper than regular input tokens.")
     print("The always-in-context files benefit heavily from caching after")
     print("the first API call, so the real cost impact is lower than the")
@@ -221,6 +301,15 @@ def main():
         "total_tokens": total_tokens,
         "memoriam_context_tokens_per_call": context_tokens_per_call,
         "estimated_memoriam_context_total": estimated_memoriam_context,
+        "lint": {
+            "map_nodes": lint.get("map_nodes"),
+            "map_node_median": lint.get("map_node_median"),
+            "map_over_budget": lint.get("map_over_budget"),
+            "stm_largest_entry": max((n for n, _ in lint.get("stm_entries", [])), default=None),
+            "defences_lines": lint.get("defences_lines"),
+            "unabsorbed_fragments": lint.get("unabsorbed_fragments"),
+            "fragment_chars": lint.get("fragment_chars"),
+        },
     }
 
     from datetime import datetime, timezone

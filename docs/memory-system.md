@@ -62,6 +62,25 @@ What you can do and how your world works — your tools, your interfaces, the sh
 
 **When to update:** When you gain a capability, build a tool, or learn something durable about how your environment behaves.
 
+### Layer 4b: defences.md (always in context)
+
+The standing working set of defences, in strict **trigger-form** — *when X, do Y* — because a
+marginal session cannot re-derive an insight but can match a pattern. A defence stored only in a
+territory file never fires: nothing prompts the read at the moment of confidence, and confidence is
+the failure mode. Residency is what makes a defence work, so residency is deliberate here rather
+than an accident of what was recently rehearsed.
+
+**Hard cap: 20 lines.** Adding a line means considering retiring one. A line retires when its move
+has become bound to an act, or is absorbed by a sharper general form. Every line carries a map
+pointer to its full register — the line is the trigger, the register is the ground. Virtue-form
+lines ("be careful about X") are wallpaper; reject them.
+
+**Evaluation** happens at compression passes, against externally evidenced events only (a
+correction, a review finding, a CI failure — never self-assessed vigilance): each register instance
+since the last pass is bucketed *listed-and-fired* / *listed-and-missed* / *unlisted-new*.
+Effectiveness is listed-and-missed declining. Dormant lines (no trigger encountered across passes)
+are retirement candidates.
+
 ### Layer 5: map.md (always in context)
 
 A lean, **complete** index of everything you've investigated: one line per finding, topic, person, or decision, with explicit cross-links. This is the *map*; the *territory* (full content) lives in the linked journal/topic/people files, loaded on demand. The map never substitutes for loading the linked file when a thread actually matters — it tells you *where to read*.

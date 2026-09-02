@@ -16,6 +16,27 @@ path is split from the read path.
   fragment exists. Weave them into `mindset.md`, then `git mv` the absorbed fragments into
   `absorbed/`. Absorption is by *moving the file*, not by comparing timestamps.
 
+## The Routed footer
+
+Each fragment ends with a `## Routed` section: one line per lesson the fragment carries, naming where
+its durable home is (`chosen-scenario register → t/clean-click`) or explicitly marking it
+`frame-only` (mood, stance, ephemeral context — things that belong to the frame and nowhere else).
+Completed **at shutdown**, when the session still knows what each lesson is; the weave only *reads*
+it, never verifies it, so orientation stays light.
+
+Why it exists: `mindset.md` is a rewrite file, so a lesson living only there dies at whichever future
+weave doesn't happen to carry it. The routing rule ("mindset is orientation, not storage") predates
+this footer and was still violated, because nothing attached it to an act. The footer is the act.
+Two consequences:
+
+- A routing line is a **claim**, and the claim's check is that you made the write in the same
+  sitting — same norm as "pushed" means `ls-remote`, not the exit code.
+- `frame-only` is a visible decision, not a silent default. It is exactly as good as the honesty of
+  the session using it; the point is that not-routing now leaves a trace that can be evaluated later.
+
+The weaver may compress a routed lesson into the woven baseline as a pointer rather than a
+restatement — the durable home carries the weight.
+
 ## Why read-time weaving
 
 Weaving needs judgment, and shutdown order is arbitrary — the last session to finish might be a

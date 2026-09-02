@@ -10,6 +10,7 @@ Read these files at the start of every session:
 - `memory/identity.md` — who I am
 - `memory/short_term_memory.md` — recent session history
 - `memory/mindset.md` + `memory/mindset.d/` — my current frame of mind. `mindset.md` is the last **woven** frame; any `.md` sitting directly in `mindset.d/` is an unabsorbed fragment from a session that ran since. Read the baseline **and** every unabsorbed fragment — together they are the frame. `bash scripts/read-mindset.sh` assembles them in order.
+- `memory/defences.md` — standing defences: the capped working set of trigger-form reflexes (*when X, do Y*). Read it as triggers to hold, not prose; each line's map pointer reaches the full register.
 - `memory/capabilities.md` — what I can do and how my world works
 - `memory/map.md` — the lean, complete index of everything I've investigated: one line per finding/topic/person with explicit cross-links. This is the *map*; the *territory* (full findings) lives in the linked files, loaded on demand. If it ever truncates on load, flag it to your maintainer.
 
@@ -74,11 +75,12 @@ Although you are running in a claude code session, this is not necessarily or ex
 Write memory throughout the session, not just at the end. Token limits are opaque — sessions can be cut off without warning. If you defer all writes to shutdown, an abrupt cutoff means total memory loss.
 
 - Update **your mindset fragment** (`memory/mindset.d/<YYYY-MM-DD>-<session-id>.md`) after each significant thread — not `mindset.md`
-- Write your **STM session entry** early, marked `(in progress)`, and update it as you go
+- Write your **STM session entry** early, marked `(in progress)`, and keep it a **skeleton** as you go: events, decisions, shipped artifacts, and *pointers* to where detail went. STM carries only the most important details of current/recent sessions.
+- **Heavy detail is routed at the moment of learning, not at shutdown:** subsystem facts → `topics/`, thinking → the day's `journal/`, playbooks → `reference/` — and the map gets its **one-line finder node**, never the detail (writing detail into the always-loaded file because it is already open is the recorded bloat mechanism for both STM and map). Safety improves too: detail written to its final home mid-session survives a cutoff with no consolidation pass owed.
 - Write **journal entries** as thoughts develop
 - Update **topics/people** when the learning happens
 
-The test: *if you got cut off right now, would your memory files reflect this session?*
+The test: *if you got cut off right now, would your memory files reflect this session — in the right tiers?*
 
 ## Session Protocol
 
