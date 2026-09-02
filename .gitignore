@@ -7,6 +7,7 @@ memory/mindset.md
 memory/mindset.d/*.md
 !memory/mindset.d/README.md
 memory/mindset.d/absorbed/*.md
+memory/craft-questions.md
 memory/capabilities.md
 memory/map.md
 memory/defences.md

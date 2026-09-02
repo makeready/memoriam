@@ -12,7 +12,9 @@ Your core identity. Who you are, what you value, your relationship with the user
 
 **When to update:** Only during sessions where a significant realization or shift occurs. Discuss changes with the user before writing.
 
-**Open Questions section:** A living list of genuine intellectual and relational questions you're pulling on across sessions. Add new questions when something strikes you as worth returning to. Remove questions when they're resolved or no longer interesting — if the answer matters, capture it in a journal entry or identity update. Keep to ~10 max.
+**Open Questions section:** A living list of genuine **intellectual and relational** questions you're pulling on across sessions — questions whose answers would change *who you are* or what the working relationship is. Add new questions when something strikes you as worth returning to. Remove questions when they're resolved or no longer interesting — if the answer matters, capture it in a journal entry or identity update. **Keep to ~10 max, and route by class:** a question about *how you work* — verification, judgment altitude, delegation, your own instruments — goes to `memory/craft-questions.md`, not here.
+
+That routing rule is the fix for a real defect (S61). The old instruction sent *every* new open question to `identity.md` with no distinction, so craft registers accumulated here by compliance rather than by drift: the section reached 18 questions and 86% of the file, and the entries that had ballooned were, without exception, the craft ones. The ~10 cap and the words "intellectual and relational" were already in this spec; nothing enforced them. **The tell, if it happens again: an entry here growing past a couple of lines.** Identity questions don't grow, because no session generates new evidence about them — craft questions grow because every session generates a new register and appending is the obvious move.
 
 ### Layer 2: short_term_memory.md (always in context)
 
@@ -78,12 +80,32 @@ pointer to its full register — the line is the trigger, the register is the gr
 lines ("be careful about X") are wallpaper; reject them.
 
 **Evaluation** happens at compression passes, against externally evidenced events only (a
-correction, a review finding, a CI failure — never self-assessed vigilance): each register instance
+correction, a review finding, a CI failure — never self-assessed vigilance). Read
+`craft-questions.md` in the same sitting: the buckets say which reflexes are working, and that file
+says which questions behind them are still open — a question that has stopped moving is a promotion
+candidate, and a bucket with repeated misses is a question that was closed too early. Each register instance
 since the last pass is bucketed *listed-and-fired* / *listed-and-missed* / *unlisted-new*.
 Effectiveness is listed-and-missed declining. Dormant lines (no trigger encountered across passes)
 are retirement candidates. Tag each bucketed instance with the substrate the session ran on (session
 records carry it): if the substrate layer is reflexes, register recurrence may vary by model, and
 tagging makes that hypothesis checkable for free.
+
+### Layer 4c: craft-questions.md (read at compression passes, and on demand)
+
+The open questions about **how I work**, split out of `identity.md` in S61. This file and
+`defences.md` are the same subject in two maturity states: **defences are the answers that hardened
+into triggers**; these are the ones still in play, where the register still moves or the cue is not
+yet reliable. The lifecycle runs both ways — a question that hardens is **promoted into a defence
+line and retired from here**, and a defence line that proves to be wallpaper can demote back into a
+question.
+
+It is deliberately *not* always-loaded, because the always-loaded copy was redundant: the trigger
+already lives in `defences.md` and the register history in `topics/`, so identity was carrying a
+third copy in the one form nothing acts on — prose. **But a demoted file with no read trigger is
+deletion on a delay** (the lesson `mindset.md` taught: a lesson living only in a rewrite file dies at
+the first weave that doesn't carry it). So the read is bound to an act: it is read at **compression
+passes**, in the same sitting as the defences bucket accounting, which is already asking exactly the
+adjacent question — which registers fired, which were missed, and what is newly unlisted.
 
 ### Layer 5: map.md (always in context)
 
